@@ -1,5 +1,6 @@
 # ── Stage 1: Build Next.js frontend ──────────────────────────────────────────
-FROM node:20-alpine AS frontend-builder
+# node:20-slim = Debian Bookworm slim — same libc as python:3.11-slim below
+FROM node:20-slim AS frontend-builder
 
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
@@ -14,14 +15,14 @@ RUN npm run build
 # ── Stage 2: Combined runtime ─────────────────────────────────────────────────
 FROM python:3.11-slim
 
-# System packages: nginx, supervisor, nodejs
+# System packages: nginx + supervisor only (Node comes from build stage below)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx \
     supervisor \
-    curl \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
+
+# Copy Node.js binary from build stage (both Debian Bookworm — compatible glibc)
+COPY --from=frontend-builder /usr/local/bin/node /usr/local/bin/node
 
 # ── Python backend ─────────────────────────────────────────────────────────────
 WORKDIR /app/backend
