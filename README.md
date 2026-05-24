@@ -1,5 +1,12 @@
 ---
 title: AskMyDoc
+emoji: 🤖
+colorFrom: indigo
+colorTo: purple
+sdk: docker
+pinned: false
+license: mit
+---
 
 <h1 align="center">🤖 AskMyDoc — AI Research Agent</h1>
 
@@ -30,28 +37,6 @@ title: AskMyDoc
     <img src="https://img.shields.io/badge/GitHub-RAG--Agent--AskMyDoc-black?style=for-the-badge&logo=github" />
   </a>
 </p>
-
----
-
-## ✨ What makes this different from a basic RAG demo?
-
-| Capability | This project | Basic RAG |
-|---|---|---|
-| Architecture | **Autonomous ReAct agent** | Simple retrieval chain |
-| Vector DB | **Qdrant** (production-grade) | FAISS (in-memory) |
-| Retrieval | **Hybrid BM25 + dense + cross-encoder re-rank** | Dense only |
-| Multi-document | **Yes — upload N docs, delete individually** | Single doc |
-| Conversation memory | **Session-scoped history (last 20 turns)** | Stateless |
-| Chunking | **4 strategies** (fixed, recursive, semantic, sentence-window) | One strategy |
-| Web search | **Tavily API** fallback | None |
-| Model selector | **OpenAI + HuggingFace models** switchable at runtime | Hard-coded |
-| RAG evaluation | **Embedding-based metrics** (relevancy, faithfulness, recall) | None |
-| Source citations | **Inline [Chunk N \| file.pdf p.3 \| strategy] badges** | None |
-| Rate limiting | **20 req/min** via slowapi | None |
-| Health check | **Live backend status banner** in UI | None |
-| Frontend | **Next.js 15 + Tailwind CSS** | Streamlit |
-| Infrastructure | **Docker Compose** (3 services) | Single process |
-| Streaming | **SSE token streaming** with agent trace | Blocking |
 
 ---
 
